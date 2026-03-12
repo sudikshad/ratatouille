@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { NavBar } from "@/components/nav-bar";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Trash2 } from "lucide-react";
+import { ArrowLeft, Trash2, Calendar } from "lucide-react";
 
 interface Recipe {
   id: string;
@@ -65,6 +65,21 @@ export default function RecipeDetailPage() {
     }
   };
 
+  const addToPlan = async () => {
+    try {
+      const res = await fetch("/api/meal-plan", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ recipeId: params.id }),
+      });
+      if (res.ok) {
+        alert("Added to meal plan!");
+      }
+    } catch (err) {
+      console.error("Failed to add to meal plan:", err);
+    }
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen bg-background">
@@ -107,15 +122,25 @@ export default function RecipeDetailPage() {
             <ArrowLeft className="mr-2 h-4 w-4" />
             back to recipes
           </Button>
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={deleteRecipe}
-            className="text-muted-foreground hover:text-red-500"
-          >
-            <Trash2 className="mr-2 h-4 w-4" />
-            delete
-          </Button>
+          <div className="flex gap-2">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={addToPlan}
+            >
+              <Calendar className="mr-2 h-4 w-4" />
+              add to meal plan
+            </Button>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={deleteRecipe}
+              className="text-muted-foreground hover:text-red-500"
+            >
+              <Trash2 className="mr-2 h-4 w-4" />
+              delete
+            </Button>
+          </div>
         </div>
 
         <div className="mb-8">

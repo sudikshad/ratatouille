@@ -37,3 +37,12 @@ export const recipes = pgTable("recipes", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
+
+export const mealPlans = pgTable("meal_plans", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  userId: uuid("user_id").notNull().references(() => users.id),
+  recipeId: uuid("recipe_id").notNull().references(() => recipes.id),
+  day: text("day").$type<"monday" | "tuesday" | "wednesday" | "thursday" | "friday" | "saturday" | "sunday">(),
+  meal: text("meal").$type<"breakfast" | "lunch" | "dinner" | "snack">(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});

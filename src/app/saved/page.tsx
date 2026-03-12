@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { AddRecipeModal } from "@/components/add-recipe-modal";
-import { Plus, Trash2, Search } from "lucide-react";
+import { Plus, Trash2, Search, Calendar } from "lucide-react";
 
 const CATEGORIES = ["breakfast", "lunch", "dinner", "snacks", "sides"] as const;
 
@@ -104,6 +104,23 @@ export default function SavedPage() {
       }
     } catch (err) {
       console.error("Failed to delete recipe:", err);
+    }
+  };
+
+  const addToPlan = async (e: React.MouseEvent, recipeId: string) => {
+    e.stopPropagation();
+    try {
+      const res = await fetch("/api/meal-plan", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ recipeId }),
+      });
+      if (res.ok) {
+        // Brief visual feedback could be added here
+        alert("Added to meal plan!");
+      }
+    } catch (err) {
+      console.error("Failed to add to meal plan:", err);
     }
   };
 
@@ -246,14 +263,25 @@ export default function SavedPage() {
                         <CardTitle className="text-base font-medium">
                           {recipe.title.toLowerCase()}
                         </CardTitle>
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          className="h-8 w-8 p-0 opacity-0 transition-opacity group-hover:opacity-100"
-                          onClick={(e) => deleteRecipe(e, recipe.id)}
-                        >
-                          <Trash2 className="h-4 w-4 text-muted-foreground hover:text-red-500" />
-                        </Button>
+                        <div className="flex gap-1">
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            className="h-8 w-8 p-0"
+                            onClick={(e) => addToPlan(e, recipe.id)}
+                            title="Add to meal plan"
+                          >
+                            <Calendar className="h-4 w-4 text-muted-foreground hover:text-primary" />
+                          </Button>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            className="h-8 w-8 p-0 opacity-0 transition-opacity group-hover:opacity-100"
+                            onClick={(e) => deleteRecipe(e, recipe.id)}
+                          >
+                            <Trash2 className="h-4 w-4 text-muted-foreground hover:text-red-500" />
+                          </Button>
+                        </div>
                       </div>
                       {recipe.ingredients && recipe.ingredients.length > 0 && (
                         <p className="text-xs text-muted-foreground">
