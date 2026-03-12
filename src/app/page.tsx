@@ -12,8 +12,8 @@ export default async function Home() {
           <h1 className="text-xl font-bold">ratatouille</h1>
           <nav>
             {session ? (
-              <Link href="/dashboard">
-                <Button>Dashboard</Button>
+              <Link href="/profile">
+                <Button>Profile</Button>
               </Link>
             ) : (
               <Link href="/login">
@@ -35,8 +35,8 @@ export default async function Home() {
           </p>
           <div className="mt-10 flex items-center justify-center gap-4">
             {session ? (
-              <Link href="/dashboard">
-                <Button size="lg">Go to Dashboard</Button>
+              <Link href="/profile">
+                <Button size="lg">Go to Profile</Button>
               </Link>
             ) : (
               <Link href="/login">

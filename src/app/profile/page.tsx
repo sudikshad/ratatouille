@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { signOut } from "next-auth/react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -229,9 +230,12 @@ export default function ProfilePage() {
             ratatouille
           </Link>
           <div className="flex items-center gap-4">
-            <Link href="/dashboard">
-              <Button variant="outline">Dashboard</Button>
-            </Link>
+            <Button
+              variant="outline"
+              onClick={() => signOut({ callbackUrl: "/" })}
+            >
+              sign out
+            </Button>
           </div>
         </div>
       </header>
