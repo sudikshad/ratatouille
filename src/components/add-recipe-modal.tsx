@@ -14,11 +14,12 @@ interface AddRecipeModalProps {
     ingredients: string[];
     steps: string[];
   }) => Promise<void>;
+  categories: readonly string[];
 }
 
-export function AddRecipeModal({ onClose, onSave }: AddRecipeModalProps) {
+export function AddRecipeModal({ onClose, onSave, categories }: AddRecipeModalProps) {
   const [title, setTitle] = useState("");
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState(categories[0] || "dinner");
   const [ingredientsText, setIngredientsText] = useState("");
   const [stepsText, setStepsText] = useState("");
   const [saving, setSaving] = useState(false);
@@ -39,7 +40,7 @@ export function AddRecipeModal({ onClose, onSave }: AddRecipeModalProps) {
 
       await onSave({
         title: title.trim(),
-        category: category.trim() || "Uncategorized",
+        category,
         ingredients,
         steps,
       });
@@ -74,12 +75,18 @@ export function AddRecipeModal({ onClose, onSave }: AddRecipeModalProps) {
 
           <div>
             <Label htmlFor="category">category</Label>
-            <Input
+            <select
               id="category"
               value={category}
               onChange={(e) => setCategory(e.target.value)}
-              placeholder="e.g., Breakfast, Lunch, Dinner"
-            />
+              className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            >
+              {categories.map((cat) => (
+                <option key={cat} value={cat}>
+                  {cat}
+                </option>
+              ))}
+            </select>
           </div>
 
           <div>

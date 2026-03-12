@@ -4,9 +4,12 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { NavBar } from "@/components/nav-bar";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { AddRecipeModal } from "@/components/add-recipe-modal";
-import { Plus, Trash2 } from "lucide-react";
+import { Plus, Trash2, Search } from "lucide-react";
+
+const CATEGORIES = ["breakfast", "lunch", "dinner", "snacks", "sides"] as const;
 
 interface Recipe {
   id: string;
@@ -14,7 +17,6 @@ interface Recipe {
   category: string;
   ingredients?: string[];
   steps?: string[];
-  source?: string;
 }
 
 export default function SavedPage() {
@@ -24,8 +26,8 @@ export default function SavedPage() {
   const [importing, setImporting] = useState(false);
   const [error, setError] = useState("");
   const [showAddModal, setShowAddModal] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
-  // Load recipes on mount
   useEffect(() => {
     loadRecipes();
   }, []);
@@ -49,21 +51,20 @@ export default function SavedPage() {
     setError("");
 
     try {
-      // Fetch full recipe details from Notion
       const res = await fetch("/api/notion/recipes?full=true");
-      if (!res.ok) {
-        throw new Error("Failed to fetch recipes");
-      }
+      if (!res.ok) throw new Error("Failed to fetch recipes");
       const data = await res.json();
 
-      // Save each recipe to database
       for (const recipe of data.recipes) {
+        // Map Notion categories to our categories
+        const category = mapCategory(recipe.category);
+
         await fetch("/api/recipes", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             title: recipe.title,
-            category: recipe.category,
+            category,
             ingredients: recipe.ingredients,
             steps: recipe.steps,
             source: "notion",
@@ -72,7 +73,6 @@ export default function SavedPage() {
         });
       }
 
-      // Reload all recipes
       await loadRecipes();
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong");
@@ -81,15 +81,23 @@ export default function SavedPage() {
     }
   };
 
+  // Map Notion categories to our fixed categories
+  const mapCategory = (notionCategory: string): string => {
+    const lower = notionCategory.toLowerCase();
+    if (lower.includes("breakfast") || lower.includes("brunch")) return "breakfast";
+    if (lower.includes("lunch")) return "lunch";
+    if (lower.includes("dinner")) return "dinner";
+    if (lower.includes("snack")) return "snacks";
+    if (lower.includes("side") || lower.includes("protein")) return "sides";
+    return "dinner"; // default
+  };
+
   const deleteRecipe = async (e: React.MouseEvent, recipeId: string) => {
     e.stopPropagation();
-
     if (!confirm("Delete this recipe?")) return;
 
     try {
-      const res = await fetch(`/api/recipes/${recipeId}`, {
-        method: "DELETE",
-      });
+      const res = await fetch(`/api/recipes/${recipeId}`, { method: "DELETE" });
       if (res.ok) {
         setRecipes(recipes.filter((r) => r.id !== recipeId));
         localStorage.removeItem(`recipe-${recipeId}`);
@@ -108,10 +116,7 @@ export default function SavedPage() {
     const res = await fetch("/api/recipes", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        ...recipe,
-        source: "manual",
-      }),
+      body: JSON.stringify({ ...recipe, source: "manual" }),
     });
 
     if (res.ok) {
@@ -127,14 +132,22 @@ export default function SavedPage() {
     router.push(`/saved/${recipe.id}`);
   };
 
-  // Group recipes by category
-  const recipesByCategory = recipes.reduce(
-    (acc, recipe) => {
-      const category = recipe.category || "Uncategorized";
-      if (!acc[category]) {
-        acc[category] = [];
-      }
-      acc[category].push(recipe);
+  // Filter recipes by search query
+  const filteredRecipes = recipes.filter((recipe) => {
+    if (!searchQuery) return true;
+    const query = searchQuery.toLowerCase();
+    return (
+      recipe.title.toLowerCase().includes(query) ||
+      recipe.ingredients?.some((i) => i.toLowerCase().includes(query))
+    );
+  });
+
+  // Group by our fixed categories
+  const recipesByCategory = CATEGORIES.reduce(
+    (acc, category) => {
+      acc[category] = filteredRecipes.filter(
+        (r) => (r.category || "dinner").toLowerCase() === category
+      );
       return acc;
     },
     {} as Record<string, Recipe[]>
@@ -144,7 +157,7 @@ export default function SavedPage() {
     <div className="min-h-screen bg-background">
       <NavBar />
       <main className="container mx-auto max-w-4xl px-4 py-8">
-        <div className="mb-8 flex items-start justify-between">
+        <div className="mb-6 flex items-start justify-between">
           <div>
             <h1 className="text-3xl font-bold">recipe library</h1>
             <p className="mt-2 text-muted-foreground">
@@ -160,6 +173,18 @@ export default function SavedPage() {
               add recipe
             </Button>
           </div>
+        </div>
+
+        {/* Search */}
+        <div className="relative mb-8">
+          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+          <Input
+            type="text"
+            placeholder="search recipes or ingredients..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="pl-10"
+          />
         </div>
 
         {error && (
@@ -182,48 +207,60 @@ export default function SavedPage() {
           </div>
         )}
 
-        {Object.entries(recipesByCategory).map(([category, categoryRecipes]) => (
-          <div key={category} className="mb-8">
-            <h2 className="mb-4 text-lg font-semibold text-muted-foreground">
-              {category.toLowerCase()}
-            </h2>
-            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-              {categoryRecipes.map((recipe) => (
-                <Card
-                  key={recipe.id}
-                  className="group cursor-pointer transition-colors hover:bg-muted/50"
-                  onClick={() => openRecipe(recipe)}
-                >
-                  <CardHeader className="pb-2">
-                    <div className="flex items-start justify-between">
-                      <CardTitle className="text-base font-medium">
-                        {recipe.title.toLowerCase()}
-                      </CardTitle>
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        className="h-8 w-8 p-0 opacity-0 transition-opacity group-hover:opacity-100"
-                        onClick={(e) => deleteRecipe(e, recipe.id)}
-                      >
-                        <Trash2 className="h-4 w-4 text-muted-foreground hover:text-red-500" />
-                      </Button>
-                    </div>
-                    {recipe.ingredients && recipe.ingredients.length > 0 && (
-                      <p className="text-xs text-muted-foreground">
-                        {recipe.ingredients.length} ingredients
-                      </p>
-                    )}
-                  </CardHeader>
-                </Card>
-              ))}
-            </div>
+        {!loading && recipes.length > 0 && filteredRecipes.length === 0 && (
+          <div className="rounded-lg border border-dashed p-12 text-center">
+            <p className="text-muted-foreground">
+              no recipes match &quot;{searchQuery}&quot;
+            </p>
           </div>
-        ))}
+        )}
+
+        {CATEGORIES.map((category) => {
+          const categoryRecipes = recipesByCategory[category];
+          if (categoryRecipes.length === 0) return null;
+
+          return (
+            <div key={category} className="mb-8">
+              <h2 className="mb-4 text-lg font-semibold">{category}</h2>
+              <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                {categoryRecipes.map((recipe) => (
+                  <Card
+                    key={recipe.id}
+                    className="group cursor-pointer transition-colors hover:bg-muted/50"
+                    onClick={() => openRecipe(recipe)}
+                  >
+                    <CardHeader className="pb-2">
+                      <div className="flex items-start justify-between">
+                        <CardTitle className="text-base font-medium">
+                          {recipe.title.toLowerCase()}
+                        </CardTitle>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          className="h-8 w-8 p-0 opacity-0 transition-opacity group-hover:opacity-100"
+                          onClick={(e) => deleteRecipe(e, recipe.id)}
+                        >
+                          <Trash2 className="h-4 w-4 text-muted-foreground hover:text-red-500" />
+                        </Button>
+                      </div>
+                      {recipe.ingredients && recipe.ingredients.length > 0 && (
+                        <p className="text-xs text-muted-foreground">
+                          {recipe.ingredients.length} ingredients
+                        </p>
+                      )}
+                    </CardHeader>
+                  </Card>
+                ))}
+              </div>
+            </div>
+          );
+        })}
 
         {showAddModal && (
           <AddRecipeModal
             onClose={() => setShowAddModal(false)}
             onSave={addRecipe}
+            categories={CATEGORIES}
           />
         )}
       </main>
