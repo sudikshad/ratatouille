@@ -142,11 +142,23 @@ export default function SavedPage() {
     );
   });
 
+  // Normalize category for grouping
+  const normalizeCategory = (cat: string | undefined): string => {
+    if (!cat) return "dinner";
+    const lower = cat.toLowerCase();
+    if (lower.includes("breakfast") || lower.includes("brunch")) return "breakfast";
+    if (lower.includes("lunch")) return "lunch";
+    if (lower.includes("dinner")) return "dinner";
+    if (lower.includes("snack")) return "snacks";
+    if (lower.includes("side") || lower.includes("protein")) return "sides";
+    return "dinner";
+  };
+
   // Group by our fixed categories
   const recipesByCategory = CATEGORIES.reduce(
     (acc, category) => {
       acc[category] = filteredRecipes.filter(
-        (r) => (r.category || "dinner").toLowerCase() === category
+        (r) => normalizeCategory(r.category) === category
       );
       return acc;
     },
