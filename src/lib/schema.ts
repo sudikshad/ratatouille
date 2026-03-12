@@ -22,3 +22,18 @@ export const users = pgTable("users", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
+
+export const recipes = pgTable("recipes", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  userId: uuid("user_id").notNull().references(() => users.id),
+  title: text("title").notNull(),
+  category: text("category"),
+  ingredients: jsonb("ingredients").$type<string[]>(),
+  steps: jsonb("steps").$type<string[]>(),
+  imageUrl: text("image_url"),
+  pdfUrl: text("pdf_url"),
+  source: text("source").$type<"manual" | "notion" | "upload">().default("manual"),
+  notionId: text("notion_id"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
