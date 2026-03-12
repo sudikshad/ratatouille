@@ -46,6 +46,11 @@ export default function SavedPage() {
     setError("");
 
     try {
+      // Clear existing Notion recipes first
+      if (recipes.length > 0) {
+        await fetch("/api/recipes/clear-notion", { method: "DELETE" });
+      }
+
       // Fetch full recipe details from Notion
       const res = await fetch("/api/notion/recipes?full=true");
       if (!res.ok) {
@@ -121,11 +126,9 @@ export default function SavedPage() {
               your collection of favorite recipes
             </p>
           </div>
-          {!imported && (
-            <Button onClick={importFromNotion} disabled={loading}>
-              {loading ? "importing..." : "import from notion"}
-            </Button>
-          )}
+          <Button onClick={importFromNotion} disabled={loading}>
+            {loading ? "importing..." : imported ? "re-import from notion" : "import from notion"}
+          </Button>
         </div>
 
         {error && (
