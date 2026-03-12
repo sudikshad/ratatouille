@@ -2,10 +2,9 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { signOut } from "next-auth/react";
-import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { NavBar } from "@/components/nav-bar";
 import { KitchenStep } from "@/components/setup/kitchen-step";
 import { PantryStep } from "@/components/setup/pantry-step";
 import { TasteStep } from "@/components/setup/taste-step";
@@ -223,22 +222,7 @@ export default function ProfilePage() {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="border-b">
-        <div className="container mx-auto flex h-16 items-center justify-between px-4">
-          <Link href="/" className="text-xl font-bold">
-            ratatouille
-          </Link>
-          <div className="flex items-center gap-4">
-            <Button
-              variant="outline"
-              onClick={() => signOut({ callbackUrl: "/" })}
-            >
-              sign out
-            </Button>
-          </div>
-        </div>
-      </header>
+      <NavBar />
 
       <main className="container mx-auto max-w-4xl px-4 py-8">
         <div className="mb-8">
