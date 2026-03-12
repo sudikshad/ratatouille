@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { NavBar } from "@/components/nav-bar";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Trash2 } from "lucide-react";
 
 interface Recipe {
   id: string;
@@ -49,6 +49,22 @@ export default function RecipeDetailPage() {
     fetchRecipe();
   }, [params.id]);
 
+  const deleteRecipe = async () => {
+    if (!confirm("Delete this recipe?")) return;
+
+    try {
+      const res = await fetch(`/api/recipes/${params.id}`, {
+        method: "DELETE",
+      });
+      if (res.ok) {
+        localStorage.removeItem(`recipe-${params.id}`);
+        router.push("/saved");
+      }
+    } catch (err) {
+      console.error("Failed to delete recipe:", err);
+    }
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen bg-background">
@@ -83,14 +99,24 @@ export default function RecipeDetailPage() {
     <div className="min-h-screen bg-background">
       <NavBar />
       <main className="container mx-auto max-w-2xl px-4 py-8">
-        <Button
-          variant="ghost"
-          className="mb-6"
-          onClick={() => router.push("/saved")}
-        >
-          <ArrowLeft className="mr-2 h-4 w-4" />
-          back to recipes
-        </Button>
+        <div className="mb-6 flex items-center justify-between">
+          <Button
+            variant="ghost"
+            onClick={() => router.push("/saved")}
+          >
+            <ArrowLeft className="mr-2 h-4 w-4" />
+            back to recipes
+          </Button>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={deleteRecipe}
+            className="text-muted-foreground hover:text-red-500"
+          >
+            <Trash2 className="mr-2 h-4 w-4" />
+            delete
+          </Button>
+        </div>
 
         <div className="mb-8">
           <p className="text-sm text-muted-foreground">{recipe.category?.toLowerCase()}</p>
