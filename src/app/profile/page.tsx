@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -8,10 +8,23 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { KitchenStep } from "@/components/setup/kitchen-step";
 import { PantryStep } from "@/components/setup/pantry-step";
 import { TasteStep } from "@/components/setup/taste-step";
+import { SelectedTiles } from "@/components/setup/selected-tiles";
+import {
+  APPLIANCES,
+  PANTRY_SPICES,
+  PANTRY_CONDIMENTS,
+  PANTRY_SPECIALTY,
+  PANTRY_EVERYDAY,
+  CUISINES,
+  DISLIKES,
+  DIETARY_STYLES,
+  GOALS,
+} from "@/lib/setup-data";
 
 export default function ProfilePage() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [fetching, setFetching] = useState(true);
   const [error, setError] = useState("");
   const [saved, setSaved] = useState(false);
 
@@ -53,6 +66,89 @@ export default function ProfilePage() {
   const [customGoals, setCustomGoals] = useState<
     Array<{ id: string; name: string }>
   >([]);
+
+  // Fetch existing profile on mount
+  useEffect(() => {
+    async function fetchProfile() {
+      try {
+        const res = await fetch("/api/profile");
+        if (!res.ok) return;
+
+        const data = await res.json();
+
+        // Helper to separate known IDs from custom ones
+        const separateCustom = (
+          ids: string[] | undefined,
+          knownItems: Array<{ id: string; name: string }>
+        ) => {
+          if (!ids) return { known: new Set<string>(), custom: [] as Array<{ id: string; name: string }> };
+          const knownIds = new Set(knownItems.map((i) => i.id));
+          const known = new Set<string>();
+          const custom: Array<{ id: string; name: string }> = [];
+          for (const id of ids) {
+            if (knownIds.has(id)) {
+              known.add(id);
+            } else {
+              custom.push({ id, name: id.replace(/^custom-/, "").replace(/-/g, " ") });
+            }
+          }
+          return { known, custom };
+        };
+
+        // Kitchen
+        if (data.kitchen) {
+          const { known, custom } = separateCustom(data.kitchen, APPLIANCES);
+          setKitchen(known);
+          setCustomKitchen(custom);
+          if (custom.length > 0) setKitchen(new Set([...known, ...custom.map(c => c.id)]));
+        }
+
+        // Pantry
+        if (data.pantry) {
+          const spicesData = separateCustom(data.pantry.spices, PANTRY_SPICES);
+          setSpices(new Set([...spicesData.known, ...spicesData.custom.map(c => c.id)]));
+          setCustomSpices(spicesData.custom);
+
+          const condimentsData = separateCustom(data.pantry.condiments, PANTRY_CONDIMENTS);
+          setCondiments(new Set([...condimentsData.known, ...condimentsData.custom.map(c => c.id)]));
+          setCustomCondiments(condimentsData.custom);
+
+          const specialtyData = separateCustom(data.pantry.specialty, PANTRY_SPECIALTY);
+          setSpecialty(new Set([...specialtyData.known, ...specialtyData.custom.map(c => c.id)]));
+          setCustomSpecialty(specialtyData.custom);
+
+          const everydayData = separateCustom(data.pantry.everyday, PANTRY_EVERYDAY);
+          setEveryday(new Set([...everydayData.known, ...everydayData.custom.map(c => c.id)]));
+          setCustomEveryday(everydayData.custom);
+        }
+
+        // Taste
+        if (data.taste) {
+          const cuisinesData = separateCustom(data.taste.cuisines, CUISINES);
+          setCuisines(new Set([...cuisinesData.known, ...cuisinesData.custom.map(c => c.id)]));
+          setCustomCuisines(cuisinesData.custom);
+
+          const dislikesData = separateCustom(data.taste.dislikes, DISLIKES);
+          setDislikes(new Set([...dislikesData.known, ...dislikesData.custom.map(c => c.id)]));
+          setCustomDislikes(dislikesData.custom);
+
+          if (data.taste.dietaryStyle) {
+            setDietaryStyle(data.taste.dietaryStyle);
+          }
+
+          const goalsData = separateCustom(data.taste.goals, GOALS);
+          setGoals(new Set([...goalsData.known, ...goalsData.custom.map(c => c.id)]));
+          setCustomGoals(goalsData.custom);
+        }
+      } catch (err) {
+        console.error("Failed to fetch profile:", err);
+      } finally {
+        setFetching(false);
+      }
+    }
+
+    fetchProfile();
+  }, []);
 
   const toggleSet = (
     set: Set<string>,
@@ -148,6 +244,11 @@ export default function ProfilePage() {
           </p>
         </div>
 
+        {fetching ? (
+          <div className="flex items-center justify-center py-12">
+            <p className="text-muted-foreground">loading your profile...</p>
+          </div>
+        ) : (
         <Tabs defaultValue="kitchen" className="w-full">
           <TabsList className="grid w-full grid-cols-3">
             <TabsTrigger value="kitchen">kitchen</TabsTrigger>
@@ -156,6 +257,12 @@ export default function ProfilePage() {
           </TabsList>
 
           <TabsContent value="kitchen" className="mt-6">
+            <SelectedTiles
+              selected={kitchen}
+              allItems={[...APPLIANCES, ...customKitchen]}
+              onRemove={(id) => toggleSet(kitchen, setKitchen, id)}
+              label="your kitchen"
+            />
             <KitchenStep
               selected={kitchen}
               onToggle={(id) => toggleSet(kitchen, setKitchen, id)}
@@ -173,6 +280,22 @@ export default function ProfilePage() {
           </TabsContent>
 
           <TabsContent value="pantry" className="mt-6">
+            <SelectedTiles
+              selected={new Set([...spices, ...condiments, ...specialty, ...everyday])}
+              allItems={[
+                ...PANTRY_SPICES, ...customSpices,
+                ...PANTRY_CONDIMENTS, ...customCondiments,
+                ...PANTRY_SPECIALTY, ...customSpecialty,
+                ...PANTRY_EVERYDAY, ...customEveryday,
+              ]}
+              onRemove={(id) => {
+                if (spices.has(id)) toggleSet(spices, setSpices, id);
+                else if (condiments.has(id)) toggleSet(condiments, setCondiments, id);
+                else if (specialty.has(id)) toggleSet(specialty, setSpecialty, id);
+                else if (everyday.has(id)) toggleSet(everyday, setEveryday, id);
+              }}
+              label="your pantry"
+            />
             <PantryStep
               spices={spices}
               condiments={condiments}
@@ -228,6 +351,27 @@ export default function ProfilePage() {
           </TabsContent>
 
           <TabsContent value="taste" className="mt-6">
+            <SelectedTiles
+              selected={new Set([
+                ...cuisines,
+                ...dislikes,
+                ...(dietaryStyle ? [dietaryStyle] : []),
+                ...goals,
+              ])}
+              allItems={[
+                ...CUISINES, ...customCuisines,
+                ...DISLIKES, ...customDislikes,
+                ...DIETARY_STYLES,
+                ...GOALS, ...customGoals,
+              ]}
+              onRemove={(id) => {
+                if (cuisines.has(id)) toggleSet(cuisines, setCuisines, id);
+                else if (dislikes.has(id)) toggleSet(dislikes, setDislikes, id);
+                else if (id === dietaryStyle) setDietaryStyle("");
+                else if (goals.has(id)) toggleSet(goals, setGoals, id);
+              }}
+              label="your taste"
+            />
             <TasteStep
               cuisines={cuisines}
               dislikes={dislikes}
@@ -270,19 +414,22 @@ export default function ProfilePage() {
             />
           </TabsContent>
         </Tabs>
+        )}
 
         {/* Save Section */}
-        <div className="mt-8 flex items-center justify-between">
-          <div>
-            {error && <p className="text-sm text-red-500">{error}</p>}
-            {saved && (
-              <p className="text-sm text-green-600">profile saved!</p>
-            )}
+        {!fetching && (
+          <div className="mt-8 flex items-center justify-between">
+            <div>
+              {error && <p className="text-sm text-red-500">{error}</p>}
+              {saved && (
+                <p className="text-sm text-green-600">profile saved!</p>
+              )}
+            </div>
+            <Button onClick={handleSave} disabled={loading} size="lg">
+              {loading ? "saving..." : "save profile"}
+            </Button>
           </div>
-          <Button onClick={handleSave} disabled={loading} size="lg">
-            {loading ? "saving..." : "save profile"}
-          </Button>
-        </div>
+        )}
       </main>
     </div>
   );
