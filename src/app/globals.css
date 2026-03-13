@@ -50,23 +50,23 @@
 :root {
   /* Warm cream background - #FDF8F3 */
   --background: oklch(0.98 0.01 70);
-  /* Near black for readability */
-  --foreground: oklch(0.15 0.01 45);
+  /* Pure black for text */
+  --foreground: #000000;
   /* White with warm tint for cards */
   --card: oklch(0.995 0.005 70);
-  --card-foreground: oklch(0.15 0.01 45);
+  --card-foreground: #000000;
   --popover: oklch(0.995 0.005 70);
-  --popover-foreground: oklch(0.15 0.01 45);
+  --popover-foreground: #000000;
   /* Ratatouille eggplant purple - #7B4B94 */
   --primary: oklch(0.48 0.15 310);
-  --primary-foreground: oklch(0.98 0.01 70);
+  --primary-foreground: #ffffff;
   /* Warm beige for secondary */
   --secondary: oklch(0.94 0.02 70);
-  --secondary-foreground: oklch(0.28 0.04 45);
+  --secondary-foreground: #000000;
   /* Warm muted beige */
   --muted: oklch(0.94 0.02 70);
-  /* Warm gray-brown for muted text */
-  --muted-foreground: oklch(0.50 0.03 45);
+  /* Dark gray for muted text */
+  --muted-foreground: #555555;
   /* Herb green accent - #81B29A */
   --accent: oklch(0.70 0.08 160);
   --accent-foreground: oklch(0.28 0.04 45);
