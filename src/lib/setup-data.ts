@@ -33,7 +33,6 @@ export const PANTRY_SPICES = [
 ];
 
 export const PANTRY_CONDIMENTS = [
-  { id: "olive-oil", name: "olive oil" },
   { id: "vegetable-oil", name: "vegetable oil" },
   { id: "soy-sauce", name: "soy sauce" },
   { id: "fish-sauce", name: "fish sauce" },
