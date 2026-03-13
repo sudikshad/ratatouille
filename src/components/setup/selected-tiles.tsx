@@ -2,12 +2,12 @@
 
 import { X } from "lucide-react";
 
-// Color variants for selected tiles - matching selection-grid
+// Color variants for selected tiles - solid colors
 const tileColors = [
-  { bg: "bg-[#7B4B94]/15", text: "text-[#7B4B94]", hover: "hover:bg-[#7B4B94]/25" },
-  { bg: "bg-[#E07A5F]/15", text: "text-[#E07A5F]", hover: "hover:bg-[#E07A5F]/25" },
-  { bg: "bg-[#81B29A]/15", text: "text-[#81B29A]", hover: "hover:bg-[#81B29A]/25" },
-  { bg: "bg-[#D4A574]/15", text: "text-[#8B5A2B]", hover: "hover:bg-[#D4A574]/25" },
+  { bg: "bg-[#7B4B94]", text: "text-white", hover: "hover:bg-[#6B3B84]" },
+  { bg: "bg-[#E07A5F]", text: "text-white", hover: "hover:bg-[#D06A4F]" },
+  { bg: "bg-[#81B29A]", text: "text-white", hover: "hover:bg-[#71A28A]" },
+  { bg: "bg-[#D4A574]", text: "text-[#3D2C29]", hover: "hover:bg-[#C49564]" },
 ];
 
 interface SelectedTilesProps {

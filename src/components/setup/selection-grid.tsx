@@ -5,12 +5,12 @@ import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
-// Color variants for selected tiles
+// Color variants for selected tiles - solid colors with white text
 const colorVariants = [
-  "border-[#7B4B94] bg-[#7B4B94]/15 text-[#7B4B94]", // purple
-  "border-[#E07A5F] bg-[#E07A5F]/15 text-[#E07A5F]", // orange
-  "border-[#81B29A] bg-[#81B29A]/15 text-[#81B29A]", // green
-  "border-[#D4A574] bg-[#D4A574]/15 text-[#8B5A2B]", // brown/yellow
+  "border-[#7B4B94] bg-[#7B4B94] text-white", // purple
+  "border-[#E07A5F] bg-[#E07A5F] text-white", // orange
+  "border-[#81B29A] bg-[#81B29A] text-white", // green
+  "border-[#D4A574] bg-[#D4A574] text-[#3D2C29]", // butter yellow with dark text
 ];
 
 function getColorVariant(index: number) {
