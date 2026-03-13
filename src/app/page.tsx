@@ -40,21 +40,26 @@ export default async function Home() {
         <div className="container mx-auto flex h-16 items-center justify-between px-4">
           <div className="flex items-center gap-2">
             <svg
-              width="28"
-              height="28"
+              width="24"
+              height="24"
               viewBox="0 0 32 32"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
-              className="text-primary"
             >
-              {/* Ladle bowl */}
-              <ellipse cx="16" cy="22" rx="10" ry="6" stroke="currentColor" strokeWidth="2" fill="none" />
-              <path d="M6 22 Q6 28 16 28 Q26 28 26 22" stroke="currentColor" strokeWidth="2" fill="none" />
-              {/* Ladle handle */}
-              <path d="M16 16 Q16 8 10 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" fill="none" />
-              {/* Steam */}
-              <path d="M12 18 Q11 15 13 13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" opacity="0.6" />
-              <path d="M20 18 Q21 14 19 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" opacity="0.6" />
+              {/* Ladle handle - long diagonal */}
+              <path
+                d="M8 4 L18 18"
+                stroke="#8B5A2B"
+                strokeWidth="3"
+                strokeLinecap="round"
+              />
+              {/* Ladle bowl - deep rounded scoop */}
+              <path
+                d="M12 20 Q12 28 20 28 Q28 28 28 20 Q28 14 20 14 Q14 14 12 20"
+                stroke="#8B5A2B"
+                strokeWidth="2.5"
+                fill="none"
+              />
             </svg>
             <h1 className="text-xl font-bold">ratatouille</h1>
           </div>
