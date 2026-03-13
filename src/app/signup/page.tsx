@@ -4,6 +4,7 @@ import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { m } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -15,6 +16,7 @@ import {
   CardTitle,
   CardFooter,
 } from "@/components/ui/card";
+import { fadeUpVariants } from "@/lib/motion";
 
 export default function SignupPage() {
   const router = useRouter();
@@ -64,6 +66,11 @@ export default function SignupPage() {
 
   return (
     <div className="flex min-h-screen items-center justify-center px-4">
+      <m.div
+        variants={fadeUpVariants}
+        initial="hidden"
+        animate="visible"
+      >
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
           <CardTitle className="text-2xl">Create an account</CardTitle>
@@ -118,6 +125,7 @@ export default function SignupPage() {
           </p>
         </CardFooter>
       </Card>
+      </m.div>
     </div>
   );
 }

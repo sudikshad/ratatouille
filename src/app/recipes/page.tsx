@@ -1,13 +1,16 @@
 "use client";
 
 import { useState } from "react";
+import { m, AnimatePresence } from "framer-motion";
 import { NavBar } from "@/components/nav-bar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
 import { PageIllustration } from "@/components/page-illustration";
 import { Loader2, Sparkles, BookmarkPlus, ShoppingCart, Clock, ChevronDown, ChevronUp } from "lucide-react";
 import { useCart } from "@/contexts/cart-context";
+import { staggerContainer, fadeUpVariants } from "@/lib/motion";
 
 interface GeneratedRecipe {
   title: string;
@@ -195,21 +198,47 @@ export default function RecipesPage() {
           </div>
         )}
 
-        {/* Loading state */}
+        {/* Loading state with skeleton */}
         {generating && (
-          <div className="py-12 text-center">
-            <Loader2 className="mx-auto mb-4 h-8 w-8 animate-spin text-primary" />
-            <p className="text-muted-foreground">
+          <div className="space-y-4">
+            {[1, 2, 3].map((i) => (
+              <Card key={i}>
+                <CardHeader>
+                  <div className="flex items-start justify-between">
+                    <div className="flex-1 space-y-3">
+                      <div className="flex items-center gap-2">
+                        <Skeleton className="h-6 w-48" />
+                        <Skeleton className="h-5 w-16 rounded-full" />
+                      </div>
+                      <Skeleton className="h-4 w-full max-w-md" />
+                      <div className="flex items-center gap-4">
+                        <Skeleton className="h-4 w-20" />
+                        <Skeleton className="h-4 w-20" />
+                        <Skeleton className="h-4 w-24" />
+                      </div>
+                    </div>
+                  </div>
+                </CardHeader>
+              </Card>
+            ))}
+            <p className="text-center text-sm text-muted-foreground">
               Creating recipes based on your preferences...
             </p>
           </div>
         )}
 
         {/* Results */}
+        <AnimatePresence>
         {recipes.length > 0 && (
-          <div className="space-y-4">
+          <m.div
+            className="space-y-4"
+            variants={staggerContainer}
+            initial="hidden"
+            animate="visible"
+          >
             {recipes.map((recipe, index) => (
-              <Card key={index} className="overflow-hidden">
+              <m.div key={index} variants={fadeUpVariants}>
+              <Card className="overflow-hidden">
                 <CardHeader
                   className="cursor-pointer"
                   onClick={() => setExpandedRecipe(expandedRecipe === index ? null : index)}
@@ -310,9 +339,11 @@ export default function RecipesPage() {
                   </CardContent>
                 )}
               </Card>
+              </m.div>
             ))}
-          </div>
+          </m.div>
         )}
+        </AnimatePresence>
       </main>
 
       <PageIllustration variant="chef" />
