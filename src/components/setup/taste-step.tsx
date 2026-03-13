@@ -2,6 +2,7 @@
 
 import { CUISINES, DISLIKES, DIETARY_STYLES, GOALS } from "@/lib/setup-data";
 import { SelectionGrid } from "./selection-grid";
+import { SelectedTiles } from "./selected-tiles";
 
 interface TasteStepProps {
   cuisines: Set<string>;
@@ -46,6 +47,12 @@ export function TasteStep({
 
       <div>
         <h3 className="mb-3 text-lg font-semibold">favorite cuisines</h3>
+        <SelectedTiles
+          selected={cuisines}
+          allItems={[...CUISINES, ...customCuisines]}
+          onRemove={onToggleCuisine}
+          label="your cuisines"
+        />
         <SelectionGrid
           items={CUISINES}
           selected={cuisines}
@@ -60,6 +67,12 @@ export function TasteStep({
 
       <div>
         <h3 className="mb-3 text-lg font-semibold">ingredients to avoid</h3>
+        <SelectedTiles
+          selected={dislikes}
+          allItems={[...DISLIKES, ...customDislikes]}
+          onRemove={onToggleDislike}
+          label="your dislikes"
+        />
         <p className="mb-3 text-sm text-muted-foreground">
           things you don&apos;t like or can&apos;t eat
         </p>
@@ -77,6 +90,12 @@ export function TasteStep({
 
       <div>
         <h3 className="mb-3 text-lg font-semibold">dietary style</h3>
+        <SelectedTiles
+          selected={dietaryStyleSet}
+          allItems={DIETARY_STYLES}
+          onRemove={onSetDietaryStyle}
+          label="your style"
+        />
         <SelectionGrid
           items={DIETARY_STYLES}
           selected={dietaryStyleSet}
@@ -88,6 +107,12 @@ export function TasteStep({
 
       <div>
         <h3 className="mb-3 text-lg font-semibold">meal goals</h3>
+        <SelectedTiles
+          selected={goals}
+          allItems={[...GOALS, ...customGoals]}
+          onRemove={onToggleGoal}
+          label="your goals"
+        />
         <SelectionGrid
           items={GOALS}
           selected={goals}

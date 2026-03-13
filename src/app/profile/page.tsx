@@ -324,27 +324,6 @@ export default function ProfilePage() {
           </TabsContent>
 
           <TabsContent value="taste" className="mt-6">
-            <SelectedTiles
-              selected={new Set([
-                ...cuisines,
-                ...dislikes,
-                ...(dietaryStyle ? [dietaryStyle] : []),
-                ...goals,
-              ])}
-              allItems={[
-                ...CUISINES, ...customCuisines,
-                ...DISLIKES, ...customDislikes,
-                ...DIETARY_STYLES,
-                ...GOALS, ...customGoals,
-              ]}
-              onRemove={(id) => {
-                if (cuisines.has(id)) toggleSet(cuisines, setCuisines, id);
-                else if (dislikes.has(id)) toggleSet(dislikes, setDislikes, id);
-                else if (id === dietaryStyle) setDietaryStyle("");
-                else if (goals.has(id)) toggleSet(goals, setGoals, id);
-              }}
-              label="your taste"
-            />
             <TasteStep
               cuisines={cuisines}
               dislikes={dislikes}
