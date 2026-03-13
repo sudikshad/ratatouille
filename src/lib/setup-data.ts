@@ -33,21 +33,17 @@ export const PANTRY_SPICES = [
 ];
 
 export const PANTRY_CONDIMENTS = [
-  { id: "vegetable-oil", name: "vegetable oil" },
-  { id: "soy-sauce", name: "soy sauce" },
-  { id: "fish-sauce", name: "fish sauce" },
-  { id: "hot-sauce", name: "hot sauce" },
-  { id: "vinegar", name: "vinegar" },
-  { id: "balsamic", name: "balsamic vinegar" },
-  { id: "mayo", name: "mayonnaise" },
-  { id: "mustard", name: "mustard" },
-  { id: "ketchup", name: "ketchup" },
-  { id: "honey", name: "honey" },
-  { id: "maple-syrup", name: "maple syrup" },
   { id: "sesame-oil", name: "sesame oil" },
-  { id: "worcestershire", name: "worcestershire" },
-  { id: "sriracha", name: "sriracha" },
+  { id: "avocado-oil", name: "avocado oil" },
+  { id: "soy-sauce", name: "soy sauce" },
+  { id: "rice-wine-vinegar", name: "rice wine vinegar" },
+  { id: "gochujang", name: "gochujang" },
+  { id: "balsamic-vinegar", name: "balsamic vinegar" },
+  { id: "grainy-mustard", name: "grainy mustard" },
+  { id: "ketchup", name: "ketchup" },
   { id: "tahini", name: "tahini" },
+  { id: "harissa-paste", name: "harissa paste" },
+  { id: "pesto", name: "pesto" },
 ];
 
 export const PANTRY_SPECIALTY = [
