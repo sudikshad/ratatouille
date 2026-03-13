@@ -185,18 +185,18 @@ export default function SavedPage() {
       <main className="container mx-auto max-w-4xl px-4 py-8">
         <div className="mb-6 flex items-start justify-between">
           <div>
-            <h1 className="text-3xl font-bold">recipe library</h1>
+            <h1 className="text-3xl font-bold">Recipe Library</h1>
             <p className="mt-2 text-muted-foreground">
               {recipes.length} recipes
             </p>
           </div>
           <div className="flex gap-2">
             <Button variant="outline" onClick={importFromNotion} disabled={importing}>
-              {importing ? "importing..." : "import from notion"}
+              {importing ? "Importing..." : "Import from Notion"}
             </Button>
             <Button onClick={() => setShowAddModal(true)}>
               <Plus className="mr-2 h-4 w-4" />
-              add recipe
+              Add Recipe
             </Button>
           </div>
         </div>
@@ -221,14 +221,14 @@ export default function SavedPage() {
 
         {loading && (
           <div className="py-12 text-center text-muted-foreground">
-            loading recipes...
+            Loading recipes...
           </div>
         )}
 
         {!loading && recipes.length === 0 && (
           <div className="rounded-lg border border-dashed p-12 text-center">
             <p className="text-muted-foreground">
-              no recipes yet. add one or import from notion.
+              No recipes yet. Add one or import from Notion.
             </p>
           </div>
         )}
@@ -236,7 +236,7 @@ export default function SavedPage() {
         {!loading && recipes.length > 0 && filteredRecipes.length === 0 && (
           <div className="rounded-lg border border-dashed p-12 text-center">
             <p className="text-muted-foreground">
-              no recipes match &quot;{searchQuery}&quot;
+              No recipes match &quot;{searchQuery}&quot;
             </p>
           </div>
         )}

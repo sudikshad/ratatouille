@@ -227,22 +227,22 @@ export default function ProfilePage() {
 
       <main className="container mx-auto max-w-4xl px-4 py-8">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold">your profile</h1>
+          <h1 className="text-3xl font-bold">Your Profile</h1>
           <p className="mt-2 text-muted-foreground">
-            tell us how you cook
+            Tell us how you cook
           </p>
         </div>
 
         {fetching ? (
           <div className="flex items-center justify-center py-12">
-            <p className="text-muted-foreground">loading your profile...</p>
+            <p className="text-muted-foreground">Loading your profile...</p>
           </div>
         ) : (
         <Tabs defaultValue="kitchen" className="w-full">
           <TabsList className="grid w-full grid-cols-3">
-            <TabsTrigger value="kitchen">kitchen</TabsTrigger>
-            <TabsTrigger value="pantry">pantry</TabsTrigger>
-            <TabsTrigger value="taste">taste</TabsTrigger>
+            <TabsTrigger value="kitchen">Kitchen</TabsTrigger>
+            <TabsTrigger value="pantry">Pantry</TabsTrigger>
+            <TabsTrigger value="taste">Taste</TabsTrigger>
           </TabsList>
 
           <TabsContent value="kitchen" className="mt-6">
@@ -250,7 +250,7 @@ export default function ProfilePage() {
               selected={kitchen}
               allItems={[...APPLIANCES, ...customKitchen]}
               onRemove={(id) => toggleSet(kitchen, setKitchen, id)}
-              label="your kitchen"
+              label="Your Kitchen"
             />
             <KitchenStep
               selected={kitchen}
@@ -374,11 +374,11 @@ export default function ProfilePage() {
             <div>
               {error && <p className="text-sm text-red-500">{error}</p>}
               {saved && (
-                <p className="text-sm text-green-600">profile saved!</p>
+                <p className="text-sm text-green-600">Profile saved!</p>
               )}
             </div>
             <Button onClick={handleSave} disabled={loading} size="lg">
-              {loading ? "saving..." : "save profile"}
+              {loading ? "Saving..." : "Save Profile"}
             </Button>
           </div>
         )}

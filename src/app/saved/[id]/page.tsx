@@ -81,7 +81,7 @@ export default function RecipeDetailPage() {
       <div className="min-h-screen bg-background">
         <NavBar />
         <main className="container mx-auto max-w-2xl px-4 py-8">
-          <p className="text-muted-foreground">loading recipe...</p>
+          <p className="text-muted-foreground">Loading recipe...</p>
         </main>
       </div>
     );
@@ -92,14 +92,14 @@ export default function RecipeDetailPage() {
       <div className="min-h-screen bg-background">
         <NavBar />
         <main className="container mx-auto max-w-2xl px-4 py-8">
-          <p className="text-muted-foreground">recipe not found</p>
+          <p className="text-muted-foreground">Recipe not found</p>
           <Button
             variant="ghost"
             className="mt-4"
             onClick={() => router.push("/saved")}
           >
             <ArrowLeft className="mr-2 h-4 w-4" />
-            back to recipes
+            Back to Recipes
           </Button>
         </main>
       </div>
@@ -116,7 +116,7 @@ export default function RecipeDetailPage() {
             onClick={() => router.push("/saved")}
           >
             <ArrowLeft className="mr-2 h-4 w-4" />
-            back to recipes
+            Back to Recipes
           </Button>
           <div className="flex gap-2">
             <Button
@@ -128,12 +128,12 @@ export default function RecipeDetailPage() {
               {added ? (
                 <>
                   <Check className="mr-2 h-4 w-4" />
-                  added!
+                  Added!
                 </>
               ) : (
                 <>
                   <ShoppingCart className="mr-2 h-4 w-4" />
-                  add to meal plan
+                  Add to Meal Plan
                 </>
               )}
             </Button>
@@ -144,7 +144,7 @@ export default function RecipeDetailPage() {
               className="text-muted-foreground hover:text-red-500"
             >
               <Trash2 className="mr-2 h-4 w-4" />
-              delete
+              Delete
             </Button>
           </div>
         </div>
@@ -164,7 +164,7 @@ export default function RecipeDetailPage() {
 
         {recipe.ingredients && recipe.ingredients.length > 0 && (
           <section className="mb-8">
-            <h2 className="mb-4 text-xl font-semibold">ingredients</h2>
+            <h2 className="mb-4 text-xl font-semibold">Ingredients</h2>
             <ul className="space-y-2">
               {recipe.ingredients.map((ingredient, i) => (
                 <li key={i} className="flex items-start gap-2">
@@ -178,7 +178,7 @@ export default function RecipeDetailPage() {
 
         {recipe.steps && recipe.steps.length > 0 && (
           <section className="mb-8">
-            <h2 className="mb-4 text-xl font-semibold">steps</h2>
+            <h2 className="mb-4 text-xl font-semibold">Steps</h2>
             <ol className="space-y-4">
               {recipe.steps.map((step, i) => (
                 <li key={i} className="flex gap-4">
@@ -195,7 +195,7 @@ export default function RecipeDetailPage() {
         {(!recipe.ingredients?.length && !recipe.steps?.length) && (
           <div className="rounded-lg border border-dashed p-8 text-center">
             <p className="text-muted-foreground">
-              no details available for this recipe yet
+              No details available for this recipe yet
             </p>
           </div>
         )}

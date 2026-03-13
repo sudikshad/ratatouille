@@ -9,9 +9,9 @@ import { ShoppingCart } from "lucide-react";
 import { useCart } from "@/contexts/cart-context";
 
 const navItems = [
-  { href: "/recipes", label: "new recipes" },
-  { href: "/saved", label: "saved" },
-  { href: "/profile", label: "profile" },
+  { href: "/recipes", label: "New Recipes" },
+  { href: "/saved", label: "Saved" },
+  { href: "/profile", label: "Profile" },
 ];
 
 export function NavBar() {
@@ -23,7 +23,7 @@ export function NavBar() {
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         <div className="flex items-center gap-8">
           <Link href="/" className="text-xl font-bold">
-            ratatouille
+            Ratatouille
           </Link>
           <nav className="hidden items-center gap-1 md:flex">
             {navItems.map((item) => (
@@ -64,7 +64,7 @@ export function NavBar() {
             size="sm"
             onClick={() => signOut({ callbackUrl: "/" })}
           >
-            sign out
+            Sign Out
           </Button>
         </div>
       </div>

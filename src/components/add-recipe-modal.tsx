@@ -56,7 +56,7 @@ export function AddRecipeModal({ onClose, onSave, categories }: AddRecipeModalPr
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
       <div className="max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-lg bg-background p-6">
         <div className="mb-6 flex items-center justify-between">
-          <h2 className="text-xl font-semibold">add new recipe</h2>
+          <h2 className="text-xl font-semibold">Add New Recipe</h2>
           <Button variant="ghost" size="sm" onClick={onClose}>
             <X className="h-4 w-4" />
           </Button>
@@ -64,17 +64,17 @@ export function AddRecipeModal({ onClose, onSave, categories }: AddRecipeModalPr
 
         <div className="space-y-4">
           <div>
-            <Label htmlFor="title">title</Label>
+            <Label htmlFor="title">Title</Label>
             <Input
               id="title"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              placeholder="recipe name"
+              placeholder="Recipe name"
             />
           </div>
 
           <div>
-            <Label htmlFor="category">category</Label>
+            <Label htmlFor="category">Category</Label>
             <select
               id="category"
               value={category}
@@ -90,7 +90,7 @@ export function AddRecipeModal({ onClose, onSave, categories }: AddRecipeModalPr
           </div>
 
           <div>
-            <Label htmlFor="ingredients">ingredients (one per line)</Label>
+            <Label htmlFor="ingredients">Ingredients (one per line)</Label>
             <textarea
               id="ingredients"
               value={ingredientsText}
@@ -101,7 +101,7 @@ export function AddRecipeModal({ onClose, onSave, categories }: AddRecipeModalPr
           </div>
 
           <div>
-            <Label htmlFor="steps">steps (one per line)</Label>
+            <Label htmlFor="steps">Steps (one per line)</Label>
             <textarea
               id="steps"
               value={stepsText}
@@ -113,10 +113,10 @@ export function AddRecipeModal({ onClose, onSave, categories }: AddRecipeModalPr
 
           <div className="flex justify-end gap-2 pt-4">
             <Button variant="outline" onClick={onClose}>
-              cancel
+              Cancel
             </Button>
             <Button onClick={handleSave} disabled={!title.trim() || saving}>
-              {saving ? "saving..." : "save recipe"}
+              {saving ? "Saving..." : "Save Recipe"}
             </Button>
           </div>
         </div>

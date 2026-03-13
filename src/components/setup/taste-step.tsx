@@ -42,16 +42,16 @@ export function TasteStep({
   return (
     <div className="space-y-6">
       <p className="text-muted-foreground">
-        what do you enjoy?
+        What do you enjoy?
       </p>
 
       <div>
-        <h3 className="mb-3 text-lg font-semibold">favorite cuisines</h3>
+        <h3 className="mb-3 text-lg font-semibold">Favorite Cuisines</h3>
         <SelectedTiles
           selected={cuisines}
           allItems={[...CUISINES, ...customCuisines]}
           onRemove={onToggleCuisine}
-          label="your cuisines"
+          label="Your Cuisines"
         />
         <SelectionGrid
           items={CUISINES}
@@ -61,20 +61,20 @@ export function TasteStep({
           allowCustom
           customItems={customCuisines}
           onAddCustom={onAddCustomCuisine}
-          customPlaceholder="add other cuisine..."
+          customPlaceholder="Add other cuisine..."
         />
       </div>
 
       <div>
-        <h3 className="mb-3 text-lg font-semibold">ingredients to avoid</h3>
+        <h3 className="mb-3 text-lg font-semibold">Ingredients to Avoid</h3>
         <SelectedTiles
           selected={dislikes}
           allItems={[...DISLIKES, ...customDislikes]}
           onRemove={onToggleDislike}
-          label="your dislikes"
+          label="Your Dislikes"
         />
         <p className="mb-3 text-sm text-muted-foreground">
-          things you don&apos;t like or can&apos;t eat
+          Things you don&apos;t like or can&apos;t eat
         </p>
         <SelectionGrid
           items={DISLIKES}
@@ -84,17 +84,17 @@ export function TasteStep({
           allowCustom
           customItems={customDislikes}
           onAddCustom={onAddCustomDislike}
-          customPlaceholder="add other ingredient..."
+          customPlaceholder="Add other ingredient..."
         />
       </div>
 
       <div>
-        <h3 className="mb-3 text-lg font-semibold">dietary style</h3>
+        <h3 className="mb-3 text-lg font-semibold">Dietary Style</h3>
         <SelectedTiles
           selected={dietaryStyleSet}
           allItems={DIETARY_STYLES}
           onRemove={onSetDietaryStyle}
-          label="your style"
+          label="Your Style"
         />
         <SelectionGrid
           items={DIETARY_STYLES}
@@ -106,12 +106,12 @@ export function TasteStep({
       </div>
 
       <div>
-        <h3 className="mb-3 text-lg font-semibold">meal goals</h3>
+        <h3 className="mb-3 text-lg font-semibold">Meal Goals</h3>
         <SelectedTiles
           selected={goals}
           allItems={[...GOALS, ...customGoals]}
           onRemove={onToggleGoal}
-          label="your goals"
+          label="Your Goals"
         />
         <SelectionGrid
           items={GOALS}
@@ -121,7 +121,7 @@ export function TasteStep({
           allowCustom
           customItems={customGoals}
           onAddCustom={onAddCustomGoal}
-          customPlaceholder="add other goal..."
+          customPlaceholder="Add other goal..."
         />
       </div>
     </div>
