@@ -40,28 +40,35 @@ export default async function Home() {
         <div className="container mx-auto flex h-16 items-center justify-between px-4">
           <div className="flex items-center gap-2">
             <svg
-              width="24"
-              height="24"
+              width="28"
+              height="28"
               viewBox="0 0 32 32"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
-              {/* Ladle handle - long diagonal */}
-              <path
-                d="M8 4 L18 18"
-                stroke="#8B5A2B"
-                strokeWidth="3"
-                strokeLinecap="round"
-              />
-              {/* Ladle bowl - deep rounded scoop */}
-              <path
-                d="M12 20 Q12 28 20 28 Q28 28 28 20 Q28 14 20 14 Q14 14 12 20"
-                stroke="#8B5A2B"
-                strokeWidth="2.5"
-                fill="none"
-              />
+              {/* Wooden spoon - realistic */}
+              <defs>
+                <linearGradient id="woodGrain" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stopColor="#D4A574" />
+                  <stop offset="30%" stopColor="#C4956A" />
+                  <stop offset="50%" stopColor="#B8895E" />
+                  <stop offset="70%" stopColor="#C4956A" />
+                  <stop offset="100%" stopColor="#D4A574" />
+                </linearGradient>
+                <linearGradient id="bowlGrain" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#C4956A" />
+                  <stop offset="50%" stopColor="#A67B5B" />
+                  <stop offset="100%" stopColor="#8B6914" />
+                </linearGradient>
+              </defs>
+              {/* Handle */}
+              <rect x="14" y="14" width="5" height="18" rx="2" fill="url(#woodGrain)" />
+              {/* Spoon bowl */}
+              <ellipse cx="16.5" cy="8" rx="8" ry="6" fill="url(#bowlGrain)" />
+              {/* Bowl inner shadow */}
+              <ellipse cx="16.5" cy="8.5" rx="5.5" ry="3.5" fill="#96784C" opacity="0.4" />
             </svg>
-            <h1 className="text-xl font-bold">ratatouille</h1>
+            <h1 className="text-xl font-bold text-black">ratatouille</h1>
           </div>
           <nav>
             {session ? (
