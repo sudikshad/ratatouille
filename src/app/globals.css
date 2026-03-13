@@ -50,13 +50,13 @@
 :root {
   /* Warm cream background - #FDF8F3 */
   --background: oklch(0.98 0.01 70);
-  /* Warm dark brown foreground - #3D2C29 */
-  --foreground: oklch(0.28 0.04 45);
+  /* Near black for readability */
+  --foreground: oklch(0.15 0.01 45);
   /* White with warm tint for cards */
   --card: oklch(0.995 0.005 70);
-  --card-foreground: oklch(0.28 0.04 45);
+  --card-foreground: oklch(0.15 0.01 45);
   --popover: oklch(0.995 0.005 70);
-  --popover-foreground: oklch(0.28 0.04 45);
+  --popover-foreground: oklch(0.15 0.01 45);
   /* Ratatouille eggplant purple - #7B4B94 */
   --primary: oklch(0.48 0.15 310);
   --primary-foreground: oklch(0.98 0.01 70);

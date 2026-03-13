@@ -38,7 +38,26 @@ export default async function Home() {
     <div className="relative flex min-h-screen flex-col overflow-hidden">
       <header className="border-b">
         <div className="container mx-auto flex h-16 items-center justify-between px-4">
-          <h1 className="text-xl font-bold">ratatouille</h1>
+          <div className="flex items-center gap-2">
+            <svg
+              width="28"
+              height="28"
+              viewBox="0 0 32 32"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              className="text-primary"
+            >
+              {/* Ladle bowl */}
+              <ellipse cx="16" cy="22" rx="10" ry="6" stroke="currentColor" strokeWidth="2" fill="none" />
+              <path d="M6 22 Q6 28 16 28 Q26 28 26 22" stroke="currentColor" strokeWidth="2" fill="none" />
+              {/* Ladle handle */}
+              <path d="M16 16 Q16 8 10 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" fill="none" />
+              {/* Steam */}
+              <path d="M12 18 Q11 15 13 13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" opacity="0.6" />
+              <path d="M20 18 Q21 14 19 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" opacity="0.6" />
+            </svg>
+            <h1 className="text-xl font-bold">ratatouille</h1>
+          </div>
           <nav>
             {session ? (
               <Link href="/recipes">

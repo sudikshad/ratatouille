@@ -5,6 +5,18 @@ import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
+// Color variants for selected tiles
+const colorVariants = [
+  "border-[#7B4B94] bg-[#7B4B94]/15 text-[#7B4B94]", // purple
+  "border-[#E07A5F] bg-[#E07A5F]/15 text-[#E07A5F]", // orange
+  "border-[#81B29A] bg-[#81B29A]/15 text-[#81B29A]", // green
+  "border-[#D4A574] bg-[#D4A574]/15 text-[#8B5A2B]", // brown/yellow
+];
+
+function getColorVariant(index: number) {
+  return colorVariants[index % colorVariants.length];
+}
+
 interface SelectionGridProps {
   items: Array<{ id: string; name: string }>;
   selected: Set<string>;
@@ -15,6 +27,7 @@ interface SelectionGridProps {
   customItems?: Array<{ id: string; name: string }>;
   onAddCustom?: (name: string) => void;
   customPlaceholder?: string;
+  colorIndex?: number;
 }
 
 export function SelectionGrid({
@@ -27,6 +40,7 @@ export function SelectionGrid({
   customItems = [],
   onAddCustom,
   customPlaceholder = "Add other...",
+  colorIndex = 0,
 }: SelectionGridProps) {
   const [customInput, setCustomInput] = useState("");
 
@@ -60,20 +74,21 @@ export function SelectionGrid({
           columns === 4 && "grid-cols-2 sm:grid-cols-3 md:grid-cols-4"
         )}
       >
-        {allItems.map((item) => {
+        {allItems.map((item, idx) => {
           const isSelected = selected.has(item.id);
           const isCustom = customItems.some((c) => c.id === item.id);
+          const itemColorIndex = (colorIndex + Math.floor(idx / 4)) % colorVariants.length;
           return (
             <button
               key={item.id}
               type="button"
               onClick={() => handleClick(item.id)}
               className={cn(
-                "rounded-lg border px-3 py-2.5 text-sm font-medium transition-all",
-                "hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                "rounded-lg border-2 px-3 py-2.5 text-sm font-medium transition-all",
+                "hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
                 isSelected
-                  ? "border-primary bg-primary/10 text-primary border-2"
-                  : "border-border bg-background text-foreground",
+                  ? getColorVariant(itemColorIndex)
+                  : "border-border bg-background text-foreground hover:border-muted-foreground/30",
                 isCustom && "italic"
               )}
             >
