@@ -4,7 +4,8 @@ import { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { NavBar } from "@/components/nav-bar";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Trash2, Calendar } from "lucide-react";
+import { ArrowLeft, Trash2, ShoppingCart, Check } from "lucide-react";
+import { useCart } from "@/contexts/cart-context";
 
 interface Recipe {
   id: string;
@@ -19,8 +20,10 @@ interface Recipe {
 export default function RecipeDetailPage() {
   const params = useParams();
   const router = useRouter();
+  const { addToCart } = useCart();
   const [recipe, setRecipe] = useState<Recipe | null>(null);
   const [loading, setLoading] = useState(true);
+  const [added, setAdded] = useState(false);
 
   useEffect(() => {
     // Check localStorage for cached recipe data (from Notion import)
@@ -66,17 +69,10 @@ export default function RecipeDetailPage() {
   };
 
   const addToPlan = async () => {
-    try {
-      const res = await fetch("/api/meal-plan", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ recipeId: params.id }),
-      });
-      if (res.ok) {
-        alert("Added to meal plan!");
-      }
-    } catch (err) {
-      console.error("Failed to add to meal plan:", err);
+    const success = await addToCart(params.id as string);
+    if (success) {
+      setAdded(true);
+      setTimeout(() => setAdded(false), 2000);
     }
   };
 
@@ -124,12 +120,22 @@ export default function RecipeDetailPage() {
           </Button>
           <div className="flex gap-2">
             <Button
-              variant="outline"
+              variant={added ? "default" : "outline"}
               size="sm"
               onClick={addToPlan}
+              disabled={added}
             >
-              <Calendar className="mr-2 h-4 w-4" />
-              add to meal plan
+              {added ? (
+                <>
+                  <Check className="mr-2 h-4 w-4" />
+                  added!
+                </>
+              ) : (
+                <>
+                  <ShoppingCart className="mr-2 h-4 w-4" />
+                  add to meal plan
+                </>
+              )}
             </Button>
             <Button
               variant="ghost"

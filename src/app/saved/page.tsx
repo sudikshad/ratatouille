@@ -6,8 +6,11 @@ import { NavBar } from "@/components/nav-bar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
+import { PageIllustration } from "@/components/page-illustration";
+import { cn } from "@/lib/utils";
 import { AddRecipeModal } from "@/components/add-recipe-modal";
-import { Plus, Trash2, Search, Calendar } from "lucide-react";
+import { Plus, Trash2, Search, ShoppingCart } from "lucide-react";
+import { useCart } from "@/contexts/cart-context";
 
 const CATEGORIES = ["breakfast", "lunch", "dinner", "snacks", "sides"] as const;
 
@@ -21,8 +24,10 @@ interface Recipe {
 
 export default function SavedPage() {
   const router = useRouter();
+  const { addToCart } = useCart();
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [loading, setLoading] = useState(true);
+  const [addedId, setAddedId] = useState<string | null>(null);
   const [importing, setImporting] = useState(false);
   const [error, setError] = useState("");
   const [showAddModal, setShowAddModal] = useState(false);
@@ -109,18 +114,10 @@ export default function SavedPage() {
 
   const addToPlan = async (e: React.MouseEvent, recipeId: string) => {
     e.stopPropagation();
-    try {
-      const res = await fetch("/api/meal-plan", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ recipeId }),
-      });
-      if (res.ok) {
-        // Brief visual feedback could be added here
-        alert("Added to meal plan!");
-      }
-    } catch (err) {
-      console.error("Failed to add to meal plan:", err);
+    const success = await addToCart(recipeId);
+    if (success) {
+      setAddedId(recipeId);
+      setTimeout(() => setAddedId(null), 1500);
     }
   };
 
@@ -183,7 +180,7 @@ export default function SavedPage() {
   );
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="relative min-h-screen overflow-hidden bg-background">
       <NavBar />
       <main className="container mx-auto max-w-4xl px-4 py-8">
         <div className="mb-6 flex items-start justify-between">
@@ -267,11 +264,17 @@ export default function SavedPage() {
                           <Button
                             variant="ghost"
                             size="sm"
-                            className="h-8 w-8 p-0"
+                            className={cn(
+                              "h-8 w-8 p-0 transition-colors",
+                              addedId === recipe.id && "text-primary"
+                            )}
                             onClick={(e) => addToPlan(e, recipe.id)}
                             title="Add to meal plan"
                           >
-                            <Calendar className="h-4 w-4 text-muted-foreground hover:text-primary" />
+                            <ShoppingCart className={cn(
+                              "h-4 w-4",
+                              addedId === recipe.id ? "text-primary" : "text-muted-foreground hover:text-primary"
+                            )} />
                           </Button>
                           <Button
                             variant="ghost"
@@ -304,6 +307,8 @@ export default function SavedPage() {
           />
         )}
       </main>
+
+      <PageIllustration variant="cookbook" />
     </div>
   );
 }

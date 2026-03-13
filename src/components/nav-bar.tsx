@@ -5,16 +5,18 @@ import { usePathname } from "next/navigation";
 import { signOut } from "next-auth/react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { ShoppingCart } from "lucide-react";
+import { useCart } from "@/contexts/cart-context";
 
 const navItems = [
-  { href: "/recipes", label: "recipes" },
+  { href: "/recipes", label: "new recipes" },
   { href: "/saved", label: "saved" },
-  { href: "/groceries", label: "groceries" },
   { href: "/profile", label: "profile" },
 ];
 
 export function NavBar() {
   const pathname = usePathname();
+  const { count } = useCart();
 
   return (
     <header className="border-b">
@@ -40,13 +42,31 @@ export function NavBar() {
             ))}
           </nav>
         </div>
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => signOut({ callbackUrl: "/" })}
-        >
-          sign out
-        </Button>
+        <div className="flex items-center gap-4">
+          <Link
+            href="/groceries"
+            className={cn(
+              "relative rounded-md p-2 transition-colors",
+              pathname === "/groceries"
+                ? "bg-primary/10 text-primary"
+                : "text-muted-foreground hover:bg-muted hover:text-foreground"
+            )}
+          >
+            <ShoppingCart className="h-5 w-5" />
+            {count > 0 && (
+              <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-xs font-medium text-primary-foreground">
+                {count > 9 ? "9+" : count}
+              </span>
+            )}
+          </Link>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => signOut({ callbackUrl: "/" })}
+          >
+            sign out
+          </Button>
+        </div>
       </div>
       {/* Mobile nav */}
       <nav className="flex border-t md:hidden">
@@ -64,6 +84,18 @@ export function NavBar() {
             {item.label}
           </Link>
         ))}
+        <Link
+          href="/groceries"
+          className={cn(
+            "flex flex-1 items-center justify-center gap-1 py-3 text-sm font-medium transition-colors",
+            pathname === "/groceries"
+              ? "bg-primary/10 text-primary"
+              : "text-muted-foreground"
+          )}
+        >
+          <ShoppingCart className="h-4 w-4" />
+          {count > 0 && <span>({count})</span>}
+        </Link>
       </nav>
     </header>
   );

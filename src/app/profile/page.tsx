@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { NavBar } from "@/components/nav-bar";
+import { PageIllustration } from "@/components/page-illustration";
 import { KitchenStep } from "@/components/setup/kitchen-step";
 import { PantryStep } from "@/components/setup/pantry-step";
 import { TasteStep } from "@/components/setup/taste-step";
@@ -221,7 +222,7 @@ export default function ProfilePage() {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="relative min-h-screen overflow-hidden bg-background">
       <NavBar />
 
       <main className="container mx-auto max-w-4xl px-4 py-8">
@@ -419,6 +420,8 @@ export default function ProfilePage() {
           </div>
         )}
       </main>
+
+      <PageIllustration variant="kitchen" />
     </div>
   );
 }

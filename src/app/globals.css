@@ -48,72 +48,86 @@
 }
 
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.809 0.105 251.813);
-  --chart-2: oklch(0.623 0.214 259.815);
-  --chart-3: oklch(0.546 0.245 262.881);
-  --chart-4: oklch(0.488 0.243 264.376);
-  --chart-5: oklch(0.424 0.199 265.638);
+  /* Warm cream background - #FDF8F3 */
+  --background: oklch(0.98 0.01 70);
+  /* Warm dark brown foreground - #3D2C29 */
+  --foreground: oklch(0.28 0.04 45);
+  /* White with warm tint for cards */
+  --card: oklch(0.995 0.005 70);
+  --card-foreground: oklch(0.28 0.04 45);
+  --popover: oklch(0.995 0.005 70);
+  --popover-foreground: oklch(0.28 0.04 45);
+  /* Ratatouille eggplant purple - #7B4B94 */
+  --primary: oklch(0.48 0.15 310);
+  --primary-foreground: oklch(0.98 0.01 70);
+  /* Warm beige for secondary */
+  --secondary: oklch(0.94 0.02 70);
+  --secondary-foreground: oklch(0.28 0.04 45);
+  /* Warm muted beige */
+  --muted: oklch(0.94 0.02 70);
+  /* Warm gray-brown for muted text */
+  --muted-foreground: oklch(0.50 0.03 45);
+  /* Herb green accent - #81B29A */
+  --accent: oklch(0.70 0.08 160);
+  --accent-foreground: oklch(0.28 0.04 45);
+  /* Terracotta destructive - #E07A5F */
+  --destructive: oklch(0.65 0.16 30);
+  /* Warm border */
+  --border: oklch(0.90 0.02 70);
+  --input: oklch(0.90 0.02 70);
+  /* Purple-tinted ring */
+  --ring: oklch(0.48 0.15 310);
+  /* Chart colors using cookbook palette */
+  --chart-1: oklch(0.48 0.15 310);  /* eggplant purple */
+  --chart-2: oklch(0.65 0.16 30);   /* terracotta */
+  --chart-3: oklch(0.70 0.08 160);  /* herb green */
+  --chart-4: oklch(0.82 0.10 85);   /* butter yellow */
+  --chart-5: oklch(0.50 0.12 310);  /* deep purple */
   --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --sidebar: oklch(0.96 0.015 70);
+  --sidebar-foreground: oklch(0.28 0.04 45);
+  --sidebar-primary: oklch(0.48 0.15 310);
+  --sidebar-primary-foreground: oklch(0.98 0.01 70);
+  --sidebar-accent: oklch(0.94 0.02 70);
+  --sidebar-accent-foreground: oklch(0.28 0.04 45);
+  --sidebar-border: oklch(0.90 0.02 70);
+  --sidebar-ring: oklch(0.48 0.15 310);
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
+  /* Warm dark background with slight brown tint */
+  --background: oklch(0.16 0.02 45);
+  --foreground: oklch(0.94 0.015 70);
+  --card: oklch(0.20 0.02 45);
+  --card-foreground: oklch(0.94 0.015 70);
+  --popover: oklch(0.20 0.02 45);
+  --popover-foreground: oklch(0.94 0.015 70);
+  /* Lighter purple for dark mode */
+  --primary: oklch(0.70 0.12 310);
+  --primary-foreground: oklch(0.16 0.02 45);
+  --secondary: oklch(0.26 0.02 45);
+  --secondary-foreground: oklch(0.94 0.015 70);
+  --muted: oklch(0.26 0.02 45);
+  --muted-foreground: oklch(0.65 0.02 45);
+  --accent: oklch(0.60 0.08 160);
+  --accent-foreground: oklch(0.94 0.015 70);
+  --destructive: oklch(0.65 0.16 30);
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.809 0.105 251.813);
-  --chart-2: oklch(0.623 0.214 259.815);
-  --chart-3: oklch(0.546 0.245 262.881);
-  --chart-4: oklch(0.488 0.243 264.376);
-  --chart-5: oklch(0.424 0.199 265.638);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --ring: oklch(0.70 0.12 310);
+  --chart-1: oklch(0.70 0.12 310);
+  --chart-2: oklch(0.70 0.14 30);
+  --chart-3: oklch(0.70 0.08 160);
+  --chart-4: oklch(0.82 0.10 85);
+  --chart-5: oklch(0.55 0.12 310);
+  --sidebar: oklch(0.20 0.02 45);
+  --sidebar-foreground: oklch(0.94 0.015 70);
+  --sidebar-primary: oklch(0.70 0.12 310);
+  --sidebar-primary-foreground: oklch(0.16 0.02 45);
+  --sidebar-accent: oklch(0.26 0.02 45);
+  --sidebar-accent-foreground: oklch(0.94 0.015 70);
   --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  --sidebar-ring: oklch(0.70 0.12 310);
 }
 
 @layer base {
