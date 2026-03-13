@@ -269,22 +269,6 @@ export default function ProfilePage() {
           </TabsContent>
 
           <TabsContent value="pantry" className="mt-6">
-            <SelectedTiles
-              selected={new Set([...spices, ...condiments, ...specialty, ...everyday])}
-              allItems={[
-                ...PANTRY_SPICES, ...customSpices,
-                ...PANTRY_CONDIMENTS, ...customCondiments,
-                ...PANTRY_SPECIALTY, ...customSpecialty,
-                ...PANTRY_EVERYDAY, ...customEveryday,
-              ]}
-              onRemove={(id) => {
-                if (spices.has(id)) toggleSet(spices, setSpices, id);
-                else if (condiments.has(id)) toggleSet(condiments, setCondiments, id);
-                else if (specialty.has(id)) toggleSet(specialty, setSpecialty, id);
-                else if (everyday.has(id)) toggleSet(everyday, setEveryday, id);
-              }}
-              label="your pantry"
-            />
             <PantryStep
               spices={spices}
               condiments={condiments}
