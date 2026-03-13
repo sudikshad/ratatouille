@@ -49,16 +49,16 @@ export function PantryStep({
   return (
     <div className="space-y-6">
       <p className="text-muted-foreground">
-        what do you always have on hand?
+        What do you always have on hand?
       </p>
 
       <div>
-        <h3 className="mb-3 text-lg font-semibold">staples</h3>
+        <h3 className="mb-3 text-lg font-semibold">Staples</h3>
         <SelectedTiles
           selected={everyday}
           allItems={[...PANTRY_EVERYDAY, ...customEveryday]}
           onRemove={onToggleEveryday}
-          label="your staples"
+          label="Your Staples"
         />
         <SelectionGrid
           items={PANTRY_EVERYDAY}
@@ -68,17 +68,17 @@ export function PantryStep({
           allowCustom
           customItems={customEveryday}
           onAddCustom={onAddCustomEveryday}
-          customPlaceholder="add other staple..."
+          customPlaceholder="Add other staple..."
         />
       </div>
 
       <div>
-        <h3 className="mb-3 text-lg font-semibold">spices</h3>
+        <h3 className="mb-3 text-lg font-semibold">Spices</h3>
         <SelectedTiles
           selected={spices}
           allItems={[...PANTRY_SPICES, ...customSpices]}
           onRemove={onToggleSpice}
-          label="your spices"
+          label="Your Spices"
         />
         <SelectionGrid
           items={PANTRY_SPICES}
@@ -88,17 +88,17 @@ export function PantryStep({
           allowCustom
           customItems={customSpices}
           onAddCustom={onAddCustomSpice}
-          customPlaceholder="add other spice..."
+          customPlaceholder="Add other spice..."
         />
       </div>
 
       <div>
-        <h3 className="mb-3 text-lg font-semibold">condiments & oils</h3>
+        <h3 className="mb-3 text-lg font-semibold">Condiments & Oils</h3>
         <SelectedTiles
           selected={condiments}
           allItems={[...PANTRY_CONDIMENTS, ...customCondiments]}
           onRemove={onToggleCondiment}
-          label="your condiments"
+          label="Your Condiments"
         />
         <SelectionGrid
           items={PANTRY_CONDIMENTS}
@@ -108,17 +108,17 @@ export function PantryStep({
           allowCustom
           customItems={customCondiments}
           onAddCustom={onAddCustomCondiment}
-          customPlaceholder="add other condiment..."
+          customPlaceholder="Add other condiment..."
         />
       </div>
 
       <div>
-        <h3 className="mb-3 text-lg font-semibold">specialty</h3>
+        <h3 className="mb-3 text-lg font-semibold">Specialty</h3>
         <SelectedTiles
           selected={specialty}
           allItems={[...PANTRY_SPECIALTY, ...customSpecialty]}
           onRemove={onToggleSpecialty}
-          label="your specialty items"
+          label="Your Specialty Items"
         />
         <SelectionGrid
           items={PANTRY_SPECIALTY}
@@ -128,7 +128,7 @@ export function PantryStep({
           allowCustom
           customItems={customSpecialty}
           onAddCustom={onAddCustomSpecialty}
-          customPlaceholder="add other specialty item..."
+          customPlaceholder="Add other specialty item..."
         />
       </div>
     </div>

@@ -217,7 +217,7 @@ export default function GroceriesPage() {
       <main className="container mx-auto max-w-4xl px-4 py-8">
         <div className="mb-6 flex items-start justify-between">
           <div>
-            <h1 className="text-3xl font-bold">meal plan</h1>
+            <h1 className="text-3xl font-bold">Meal Plan</h1>
             <p className="mt-2 text-muted-foreground">
               {items.length} recipe{items.length !== 1 ? "s" : ""} in your plan
             </p>
@@ -231,17 +231,17 @@ export default function GroceriesPage() {
                       {generating ? (
                         <>
                           <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                          regenerating...
+                          Regenerating...
                         </>
                       ) : (
                         <>
                           <RefreshCw className="mr-2 h-4 w-4" />
-                          regenerate
+                          Regenerate
                         </>
                       )}
                     </Button>
                     <Button variant="outline" onClick={hideList}>
-                      hide list
+                      Hide List
                     </Button>
                   </>
                 ) : (
@@ -249,18 +249,18 @@ export default function GroceriesPage() {
                     {generating ? (
                       <>
                         <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                        generating...
+                        Generating...
                       </>
                     ) : (
                       <>
                         <ShoppingCart className="mr-2 h-4 w-4" />
-                        {shoppingList.length > 0 ? "show shopping list" : "generate shopping list"}
+                        {shoppingList.length > 0 ? "Show Shopping List" : "Generate Shopping List"}
                       </>
                     )}
                   </Button>
                 )}
                 <Button variant="outline" onClick={clearAll}>
-                  clear all
+                  Clear All
                 </Button>
               </>
             )}
@@ -269,17 +269,17 @@ export default function GroceriesPage() {
 
         {loading && (
           <div className="py-12 text-center text-muted-foreground">
-            loading meal plan...
+            Loading meal plan...
           </div>
         )}
 
         {!loading && items.length === 0 && (
           <div className="rounded-lg border border-dashed p-12 text-center">
             <p className="text-muted-foreground">
-              no recipes in your meal plan yet.
+              No recipes in your meal plan yet.
             </p>
             <p className="mt-2 text-sm text-muted-foreground">
-              go to your recipe library and click the cart icon to add recipes.
+              Go to your recipe library and click the cart icon to add recipes.
             </p>
           </div>
         )}
@@ -289,7 +289,7 @@ export default function GroceriesPage() {
           <Card className="mb-8">
             <CardHeader>
               <div className="flex items-center justify-between">
-                <CardTitle className="text-lg">to buy</CardTitle>
+                <CardTitle className="text-lg">To Buy</CardTitle>
                 <p className="text-sm text-muted-foreground">
                   {shoppingList.filter((i) => i.checked).length} / {shoppingList.length} items
                 </p>
@@ -345,7 +345,7 @@ export default function GroceriesPage() {
           <Card className="mb-8 border-dashed">
             <CardHeader>
               <div className="flex items-center justify-between">
-                <CardTitle className="text-lg text-muted-foreground">from your pantry</CardTitle>
+                <CardTitle className="text-lg text-muted-foreground">From Your Pantry</CardTitle>
                 <p className="text-sm text-muted-foreground">
                   {pantryList.length} items you already have
                 </p>
@@ -384,7 +384,7 @@ export default function GroceriesPage() {
         {showList && shoppingList.length === 0 && pantryList.length === 0 && (
           <Card className="mb-8">
             <CardContent className="py-8 text-center text-muted-foreground">
-              no ingredients found in selected recipes
+              No ingredients found in selected recipes
             </CardContent>
           </Card>
         )}
@@ -392,7 +392,7 @@ export default function GroceriesPage() {
         {/* Meal Plan Items */}
         {!loading && items.length > 0 && (
           <div className="space-y-3">
-            <h2 className="text-lg font-semibold">recipes</h2>
+            <h2 className="text-lg font-semibold">Recipes</h2>
             {items.map((item) => (
               <Card key={item.id} className="group">
                 <CardHeader className="pb-2">

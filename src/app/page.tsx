@@ -10,27 +10,27 @@ export default async function Home() {
   const features = [
     {
       icon: Sparkles,
-      title: "ai recipe generation",
+      title: "AI Recipe Generation",
       description:
-        "describe what you're craving and get personalized recipes based on your taste preferences, dietary style, and kitchen equipment",
+        "Describe what you're craving and get personalized recipes based on your taste preferences, dietary style, and kitchen equipment",
     },
     {
       icon: BookOpen,
-      title: "recipe library",
+      title: "Recipe Library",
       description:
-        "save recipes manually, import from notion, or save ai-generated ones. search by name or ingredient",
+        "Save recipes manually, import from Notion, or save AI-generated ones. Search by name or ingredient",
     },
     {
       icon: UtensilsCrossed,
-      title: "meal planning",
+      title: "Meal Planning",
       description:
-        "add recipes to your weekly meal plan with one click. build your menu for the week effortlessly",
+        "Add recipes to your weekly meal plan with one click. Build your menu for the week effortlessly",
     },
     {
       icon: ShoppingCart,
-      title: "smart shopping lists",
+      title: "Smart Shopping Lists",
       description:
-        "generate shopping lists that combine quantities, normalize units, and exclude items already in your pantry",
+        "Generate shopping lists that combine quantities, normalize units, and exclude items already in your pantry",
     },
   ];
 
@@ -38,50 +38,19 @@ export default async function Home() {
     <div className="relative flex min-h-screen flex-col overflow-hidden">
       <header className="border-b">
         <div className="container mx-auto flex h-16 items-center justify-between px-4">
-          <div className="flex items-center gap-2">
-            <svg
-              width="28"
-              height="28"
-              viewBox="0 0 32 32"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              {/* Wooden spoon - realistic */}
-              <defs>
-                <linearGradient id="woodGrain" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stopColor="#D4A574" />
-                  <stop offset="30%" stopColor="#C4956A" />
-                  <stop offset="50%" stopColor="#B8895E" />
-                  <stop offset="70%" stopColor="#C4956A" />
-                  <stop offset="100%" stopColor="#D4A574" />
-                </linearGradient>
-                <linearGradient id="bowlGrain" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#C4956A" />
-                  <stop offset="50%" stopColor="#A67B5B" />
-                  <stop offset="100%" stopColor="#8B6914" />
-                </linearGradient>
-              </defs>
-              {/* Handle */}
-              <rect x="14" y="14" width="5" height="18" rx="2" fill="url(#woodGrain)" />
-              {/* Spoon bowl */}
-              <ellipse cx="16.5" cy="8" rx="8" ry="6" fill="url(#bowlGrain)" />
-              {/* Bowl inner shadow */}
-              <ellipse cx="16.5" cy="8.5" rx="5.5" ry="3.5" fill="#96784C" opacity="0.4" />
-            </svg>
-            <h1 className="text-xl font-bold text-black">ratatouille</h1>
-          </div>
+          <h1 className="text-xl font-bold text-black">Ratatouille</h1>
           <nav>
             {session ? (
               <Link href="/recipes">
-                <Button>go to app</Button>
+                <Button>Go to App</Button>
               </Link>
             ) : (
               <div className="flex gap-2">
                 <Link href="/login">
-                  <Button variant="ghost">sign in</Button>
+                  <Button variant="ghost">Sign In</Button>
                 </Link>
                 <Link href="/signup">
-                  <Button>get started</Button>
+                  <Button>Get Started</Button>
                 </Link>
               </div>
             )}
@@ -94,27 +63,27 @@ export default async function Home() {
         <section className="flex flex-col items-center justify-center px-4 py-20">
           <div className="max-w-3xl text-center">
             <h2 className="text-4xl font-bold tracking-tight sm:text-6xl">
-              plan meals, discover recipes, shop smarter
+              Plan Meals, Discover Recipes, Shop Smarter
             </h2>
             <p className="mt-6 text-lg text-muted-foreground">
-              your all-in-one system for recipe inspiration, meal planning, and smarter grocery shopping
+              Your all-in-one system for recipe inspiration, meal planning, and smarter grocery shopping
             </p>
             <div className="mt-10 flex items-center justify-center gap-4">
               {session ? (
                 <Link href="/recipes">
                   <Button size="lg">
                     <Sparkles className="mr-2 h-4 w-4" />
-                    generate recipes
+                    Generate Recipes
                   </Button>
                 </Link>
               ) : (
                 <>
                   <Link href="/signup">
-                    <Button size="lg">get started free</Button>
+                    <Button size="lg">Get Started Free</Button>
                   </Link>
                   <Link href="/login">
                     <Button size="lg" variant="outline">
-                      sign in
+                      Sign In
                     </Button>
                   </Link>
                 </>
@@ -127,7 +96,7 @@ export default async function Home() {
         <section className="border-t bg-muted/30 px-4 py-20">
           <div className="container mx-auto max-w-5xl">
             <h3 className="mb-12 text-center text-2xl font-bold">
-              everything you need to plan meals effortlessly
+              Everything You Need to Plan Meals Effortlessly
             </h3>
             <div className="grid gap-8 md:grid-cols-2">
               {features.map((feature) => (
@@ -148,33 +117,33 @@ export default async function Home() {
         <section className="px-4 py-20">
           <div className="container mx-auto max-w-3xl">
             <h3 className="mb-12 text-center text-2xl font-bold">
-              how it works
+              How It Works
             </h3>
             <div className="space-y-8">
               {[
                 {
                   step: "1",
-                  title: "set up your profile",
+                  title: "Set Up Your Profile",
                   description:
-                    "tell us about your kitchen equipment, pantry staples, cuisine preferences, and dietary goals",
+                    "Tell us about your kitchen equipment, pantry staples, cuisine preferences, and dietary goals",
                 },
                 {
                   step: "2",
-                  title: "generate or save recipes",
+                  title: "Generate or Save Recipes",
                   description:
-                    "describe what you want and get ai-generated recipes, or import your favorites from notion",
+                    "Describe what you want and get AI-generated recipes, or import your favorites from Notion",
                 },
                 {
                   step: "3",
-                  title: "build your meal plan",
+                  title: "Build Your Meal Plan",
                   description:
-                    "add recipes to your weekly plan with one click",
+                    "Add recipes to your weekly plan with one click",
                 },
                 {
                   step: "4",
-                  title: "generate your shopping list",
+                  title: "Generate Your Shopping List",
                   description:
-                    "get an optimized list that combines ingredients and skips what you already have",
+                    "Get an optimized list that combines ingredients and skips what you already have",
                 },
               ].map((item) => (
                 <div key={item.step} className="flex gap-4">
@@ -195,12 +164,12 @@ export default async function Home() {
         {!session && (
           <section className="border-t bg-muted/30 px-4 py-20">
             <div className="container mx-auto max-w-2xl text-center">
-              <h3 className="mb-4 text-2xl font-bold">ready to simplify meal planning?</h3>
+              <h3 className="mb-4 text-2xl font-bold">Ready to Simplify Meal Planning?</h3>
               <p className="mb-8 text-muted-foreground">
-                join ratatouille and start generating personalized recipes today
+                Join Ratatouille and start generating personalized recipes today
               </p>
               <Link href="/signup">
-                <Button size="lg">get started free</Button>
+                <Button size="lg">Get Started Free</Button>
               </Link>
             </div>
           </section>
@@ -209,7 +178,7 @@ export default async function Home() {
 
       <footer className="border-t py-6">
         <div className="container mx-auto px-4 text-center text-sm text-muted-foreground">
-          built with next.js and claude
+          Built with Next.js and Claude
         </div>
       </footer>
 

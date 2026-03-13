@@ -139,9 +139,9 @@ export default function RecipesPage() {
       <NavBar />
       <main className="container mx-auto max-w-4xl px-4 py-8">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold">new recipes</h1>
+          <h1 className="text-3xl font-bold">New Recipes</h1>
           <p className="mt-2 text-muted-foreground">
-            describe what you're in the mood for and get personalized suggestions
+            Describe what you're in the mood for and get personalized suggestions
           </p>
         </div>
 
@@ -160,12 +160,12 @@ export default function RecipesPage() {
             {generating ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                generating...
+                Generating...
               </>
             ) : (
               <>
                 <Sparkles className="mr-2 h-4 w-4" />
-                generate
+                Generate
               </>
             )}
           </Button>
@@ -174,7 +174,7 @@ export default function RecipesPage() {
         {/* Example prompts */}
         {recipes.length === 0 && !generating && (
           <div className="mb-8">
-            <p className="mb-3 text-sm text-muted-foreground">try something like:</p>
+            <p className="mb-3 text-sm text-muted-foreground">Try something like:</p>
             <div className="flex flex-wrap gap-2">
               {[
                 "quick weeknight dinner under 30 minutes",
@@ -200,7 +200,7 @@ export default function RecipesPage() {
           <div className="py-12 text-center">
             <Loader2 className="mx-auto mb-4 h-8 w-8 animate-spin text-primary" />
             <p className="text-muted-foreground">
-              creating recipes based on your preferences...
+              Creating recipes based on your preferences...
             </p>
           </div>
         )}
@@ -252,7 +252,7 @@ export default function RecipesPage() {
                     <div className="grid gap-6 md:grid-cols-2">
                       {/* Ingredients */}
                       <div>
-                        <h3 className="mb-3 font-semibold">ingredients</h3>
+                        <h3 className="mb-3 font-semibold">Ingredients</h3>
                         <ul className="space-y-1">
                           {recipe.ingredients.map((ing, i) => (
                             <li key={i} className="flex items-start gap-2 text-sm">
@@ -265,7 +265,7 @@ export default function RecipesPage() {
 
                       {/* Steps */}
                       <div>
-                        <h3 className="mb-3 font-semibold">steps</h3>
+                        <h3 className="mb-3 font-semibold">Steps</h3>
                         <ol className="space-y-2">
                           {recipe.steps.map((step, i) => (
                             <li key={i} className="flex gap-3 text-sm">
@@ -292,7 +292,7 @@ export default function RecipesPage() {
                         ) : (
                           <BookmarkPlus className="mr-2 h-4 w-4" />
                         )}
-                        {savedIds.has(index) ? "saved!" : "save to library"}
+                        {savedIds.has(index) ? "Saved!" : "Save to Library"}
                       </Button>
                       <Button
                         size="sm"
@@ -304,7 +304,7 @@ export default function RecipesPage() {
                         ) : (
                           <ShoppingCart className="mr-2 h-4 w-4" />
                         )}
-                        {addedIds.has(index) ? "added!" : "add to meal plan"}
+                        {addedIds.has(index) ? "Added!" : "Add to Meal Plan"}
                       </Button>
                     </div>
                   </CardContent>

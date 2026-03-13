@@ -19,7 +19,7 @@ export function KitchenStep({
   return (
     <div>
       <p className="mb-4 text-muted-foreground">
-        select the appliances and tools you have
+        Select the appliances and tools you have
       </p>
       <SelectionGrid
         items={APPLIANCES}
@@ -29,7 +29,7 @@ export function KitchenStep({
         allowCustom
         customItems={customItems}
         onAddCustom={onAddCustom}
-        customPlaceholder="add other appliance..."
+        customPlaceholder="Add other appliance..."
       />
     </div>
   );
